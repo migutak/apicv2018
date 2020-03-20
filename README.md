@@ -27,12 +27,12 @@ I hope the goals have been clearly defined. So let's discover together the **Tab
 
 # Table of Content
 
-Install apiconnect v2018 on Ubuntu / Kubernetes
+Install apiconnect v2018.4.1.10 on Ubuntu / Kubernetes
 
 1. Pre-requisites & installation
     - Ubuntu virtual machine
     - Docker & Kubernetes
-    - Helm Chart
+    - Helm Chart v2.6 and below. v3 has tiller removed
     - Python
     - Fake SMTP server
     - DataPower gateways
@@ -453,10 +453,10 @@ ubuntu$ cd ./myApic
 ubuntu$ apicup init
 
 ubuntu$ apicup subsys create manager management --k8s
-ubuntu$ apicup endpoints set manager platform-api platform.<externalIPAddress>.xip.io
-ubuntu$ apicup endpoints set manager api-manager-ui manager.<externalIPAddress>.xip.io
-ubuntu$ apicup endpoints set manager cloud-admin-ui cloud.<externalIPAddress>.xip.io
-ubuntu$ apicup endpoints set manager consumer-api consumer.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set manager platform-api platform.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set manager api-manager-ui manager.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set manager cloud-admin-ui cloud.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set manager consumer-api consumer.<externalIPAddress>.xip.io
 
 ubuntu$ apicup subsys set manager registry localhost:5000
 ubuntu$ apicup subsys set manager registry-secret my-localreg-secret
@@ -464,7 +464,7 @@ ubuntu$ apicup subsys set manager registry-secret my-localreg-secret
 ubuntu$ apicup subsys set manager mode demo
 ubuntu$ apicup subsys set manager namespace $NAMESPACE
 
-ubuntu$ apicup subsys set manager cassandra-volume-size-gb 10Gi
+ubuntu$ apicup subsys set manager cassandra-volume-size-gb 50
 ubuntu$ apicup subsys set manager storage-class velox-block
 ubuntu$ apicup subsys set manager cassandra-backup-auth-secret ""
 ubuntu$ apicup subsys set manager cassandra-backup-host ""
@@ -505,8 +505,8 @@ Go on with the installation of the apiconnect analytics.
 ```console
 ubuntu$ apicup subsys create analytics analytics --k8s
 
-ubuntu$ apicup endpoints set analytics analytics-ingestion ai.<externalIPAddress>.xip.io
-ubuntu$ apicup endpoints set analytics analytics-client ac.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set analytics analytics-ingestion ai.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set analytics analytics-client ac.<externalIPAddress>.xip.io
 
 ubuntu$ apicup subsys set analytics registry localhost:5000
 ubuntu$ apicup subsys set analytics registry-secret my-localreg-secret
@@ -542,8 +542,8 @@ Go on with the installation of the apiconnect portal.
 ```console
 ubuntu$ apicup subsys create portal portal --k8s
 
-ubuntu$ apicup endpoints set portal portal-admin padmin.<externalIPAddress>.xip.io
-ubuntu$ apicup endpoints set portal portal-www  portal.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set portal portal-admin padmin.<externalIPAddress>.xip.io
+ubuntu$ apicup subsys set portal portal-www  portal.<externalIPAddress>.xip.io
 
 ubuntu$ apicup subsys set portal registry localhost:5000
 ubuntu$ apicup subsys set portal registry-secret my-localreg-secret
